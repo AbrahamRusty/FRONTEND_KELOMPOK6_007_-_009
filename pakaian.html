@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jagantara - Pakaian & Aksesoris</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pakaian_aksesoris.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">Jagantara</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="pakaian.html">Pakaian</a></li>
+                    <li><a href="index.html">Makanan Frozen</a></li>
+                    <li><a href="index.html">Aksesoris</a></li>
+                    <li><a href="#" class="kontak-link">Kontak</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="product-page-main">
+        <div class="page-banner">
+            <h1 class="container">Pakaian</h1>
+        </div>
+        
+        <div class="product-grid container" id="productGrid">
+            </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Jagantara. Semua Hak Dilindungi.</p>
+        </div>
+    </footer>
+
+    <div id="productPopup" class="popup-overlay">
+        <div class="popup-content product-detail-content">
+            <span class="close-btn">&times;</span>
+            <div id="product-detail">
+                </div>
+        </div>
+    </div>
+    
+    <div id="contactPopup" class="popup-overlay">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h3>Hubungi Kami</h3>
+            <form class="contact-form">
+                <label for="name">Nama:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Pesan:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                <button type="submit">Kirim Pesan</button>
+            </form>
+        </div>
+    </div>
+    
+    <div id="successPopup" class="popup-overlay">
+        <div class="success-content">
+            <span class="close-btn">&times;</span>
+            <p>Pesan Berhasil Dikirim!</p>
+        </div>
+    </div>
+    
+    <div id="confirmPopup" class="popup-overlay">
+        <div class="popup-content confirm-content">
+            <h3>Konfirmasi Produk</h3>
+            <p>Apakah Anda yakin ingin membeli produk ini?</p>
+            <div class="confirm-buttons">
+                <button id="confirmBtn" class="btn green-btn">Konfirmasi</button>
+                <button id="cancelBtn" class="btn red-btn">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+        <script src="pakaian.js"></script>
+</body>
+</html>
