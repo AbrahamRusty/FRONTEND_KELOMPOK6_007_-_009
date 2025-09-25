@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jagantara - Marketplace Nusantara</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      z-index: 1000;
+      transition: top 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 8%;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    nav a { text-decoration: none; color: #333; }
+
+    /* Hero */
+    .hero {
+      height: 80vh;
+      background: url('images/hero.jpg') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+    }
+    
+    .hero button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: #007bff;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    /* Kategori */
+    .kategori {
+      padding: 60px 8%;
+      background: #f9f9f9;
+    }
+    .kategori-list {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+    .kategori-item {
+      text-align: center;
+    }
+    .kategori-item img {
+      width: 150px;
+      height: 150px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+        /* ===== Pop-up Kontak ===== */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .popup-overlay.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .popup-content {
+            background: #fff8f0;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease-out;
+            position: relative;
+        }
+
+        .popup-overlay.show .popup-content {
+            transform: translateY(0);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            color: #8b5e3c;
+            cursor: pointer;
+        }
+
+        .popup-content h3 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #8b5e3c;
+        }
+        
+        .success-content {
+          background: #e8f5e9; /* Light green background */
+          padding: 40px;
+          border-radius: 10px;
+          width: 90%;
+          max-width: 350px;
+          text-align: center;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+          transform: translateY(-20px);
+          transition: transform 0.3s ease-out;
+        }
+
+        .popup-overlay.show .success-content {
+          transform: translateY(0);
+        }
+
+        .success-content p {
+          font-size: 1.2rem;
+          font-weight: bold;
+          color: #4CAF50; /* Green text color */
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        .contact-form button {
+            width: 100%;
+            background: #a97142;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+    /* Produk Populer Carousel */
+    .produk {
+      padding: 60px 0;
+      text-align: center;
+    }
+    .produk-carousel {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .produk-track {
+      display: flex;
+      transition: transform 0.6s ease;
+    }
+    .card {
+      flex: 0 0 auto;
+      width: 220px;
+      margin: 0 15px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 15px;
+    }
+    .card img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    /* Footer */
+    footer {
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <div class="logo">Jagantara</div>
+      <nav>
+        <ul>
+          <li><a href="#">Beranda</a></li>
+          <li><a href="aksesoris.html">Aksesoris</a></li>
+          <li><a href="#">Makanan Frozen</a></li>
+          <li><a href="pakaian.html">Pakaian</a></li>
+          <li><a href="#" class="kontak-link">Kontak</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero">
+    <div class="banner-content">
+      <div class="hero-text">
+        <h1>Marketplace Nusantara</h1>
+        <p>Temukan aksesoris etnik, makanan frozen, dan pakaian khas Indonesia dengan sentuhan modern.</p>
+        <button onclick="showAlert()">Belanja Sekarang</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kategori -->
+  <section class="kategori">
+    <div class="container">
+      <h2>Belanja dari Kategori Utama</h2>
+      <div class="kategori-list">
+        <div class="kategori-item">
+          <img src="images/aksesori.png" alt="Aksesoris">
+          <p>Aksesoris</p>
+        </div>
+        <div class="kategori-item">
+          <img src="images/frozen.png" alt="Makanan Frozen">
+          <p>Makanan Frozen</p>
+        </div>
+        <div class="kategori-item">
+          <img src="images/pakaian.png" alt="Pakaian">
+          <p>Pakaian</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Produk Populer -->
+  <section class="produk">
+    <h2>Produk Populer</h2>
+    <div class="produk-carousel">
+      <div class="produk-track" id="produkTrack">
+        <div class="card"><img src="images/produk1.jpg"><h3>Kopi Nusantara</h3><p>Rp50.000</p></div>
+        <div class="card"><img src="images/produk2.jpg"><h3>Batik Modern</h3><p>Rp250.000</p></div>
+        <div class="card"><img src="images/produk3.jpg"><h3>Keripik Pisang</h3><p>Rp20.000</p></div>
+        <div class="card"><img src="images/produk4.jpg"><h3>Sepatu Kulit</h3><p>Rp450.000</p></div>
+        <div class="card"><img src="images/produk5.jpg"><h3>Tas Anyaman</h3><p>Rp180.000</p></div>
+        <div class="card"><img src="images/produk6.jpg"><h3>Minyak Kayu Putih</h3><p>Rp35.000</p></div>
+        <div class="card"><img src="images/produk7.jpg"><h3>Gelang Kayu</h3><p>Rp25.000</p></div>
+        <div class="card"><img src="images/produk8.jpg"><h3>Handmade Mug</h3><p>Rp75.000</p></div>
+        <div class="card"><img src="images/produk9.jpg"><h3>Kopi Tubruk</h3><p>Rp45.000</p></div>
+        <div class="card"><img src="images/produk10.jpg"><h3>Batik Tulis</h3><p>Rp650.000</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Jagantara. Semua Hak Dilindungi.</p>
+    </div>
+  </footer>
+
+  <!-- contact -->
+  <div id="contactPopup" class="popup-overlay">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h3>Hubungi Kami</h3>
+            <form class="contact-form">
+                <label for="name">Nama:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Pesan:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                <button type="submit">Kirim Pesan</button>
+            </form>
+        </div>
+    </div>
+
+  <div id="successPopup" class="popup-overlay">
+      <div class="success-content">
+          <span class="close-btn">&times;</span>
+          <p>Pesan Berhasil Dikirim!</p>
+      </div>
+  </div>
+
+  <script>
+    // Header hide saat scroll ke bawah
+    let lastScrollY = window.scrollY;
+    const header = document.querySelector("header");
+
+    window.addEventListener("scroll", () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY) {
+        header.style.top = "-80px";
+      } else {
+        header.style.top = "0";
+      }
+      lastScrollY = currentScrollY;
+    });
+
+    // Button hero
+    function showAlert() {
+      alert("Selamat berbelanja di Jagantara! 🌏✨ Marketplace Nusantara untukmu.");
+    }
+
+    // Auto carousel dengan fokus center
+    const track = document.getElementById("produkTrack");
+    const cards = track.children;
+    let index = 0;
+
+    function updateCarousel() {
+      const cardWidth = cards[0].offsetWidth + 30; // width + margin
+      const containerWidth = document.querySelector(".produk-carousel").offsetWidth;
+      const offset = (containerWidth / 2) - (cardWidth / 2) - (index * cardWidth);
+      track.style.transform = `translateX(${offset}px)`;
+    }
+
+    function autoSlide() {
+      index = (index + 1) % cards.length;
+      updateCarousel();
+    }
+
+    setInterval(autoSlide, 2500);
+    window.addEventListener("resize", updateCarousel);
+    window.addEventListener("load", updateCarousel);
+
+    // ===== Pop-up Kontak & Pop-up Berhasil =====
+// Seleksi elemen yang diperlukan dari HTML
+const contactLink = document.querySelector(".kontak-link");
+const contactPopup = document.getElementById("contactPopup");
+const successPopup = document.getElementById("successPopup");
+const closeBtns = document.querySelectorAll(".close-btn");
+const contactForm = document.querySelector(".contact-form");
+
+// Menampilkan pop-up kontak saat tautan "Kontak" diklik
+contactLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    contactPopup.classList.add("show");
+});
+
+// Mendengarkan event 'submit' dari form (bukan dari tombolnya)
+// Ini adalah cara yang lebih andal untuk menangani pengiriman form
+contactForm.addEventListener("submit", (e) => {
+    e.preventDefault(); // Mencegah halaman untuk reload saat form dikirim
+
+    // 1. Sembunyikan pop-up kontak yang sedang terbuka
+    contactPopup.classList.remove("show");
+
+    // 2. Tampilkan pop-up "Pesan Berhasil Dikirim"
+    successPopup.classList.add("show");
+
+    // 3. (Opsional) Mengosongkan semua input pada form
+    contactForm.reset();
+});
+
+// Menambahkan fungsionalitas untuk semua tombol close
+closeBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        contactPopup.classList.remove("show");
+        successPopup.classList.remove("show");
+    });
+});
+
+// Menutup pop-up saat user mengklik di luar area pop-up
+window.addEventListener("click", (e) => {
+    if (e.target === contactPopup) {
+        contactPopup.classList.remove("show");
+    }
+    if (e.target === successPopup) {
+        successPopup.classList.remove("show");
+    }
+});
+  </script>
+</body>
+</html>
