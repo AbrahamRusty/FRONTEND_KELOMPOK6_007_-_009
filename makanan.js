@@ -1,3 +1,4 @@
+// GANTI SELURUH ISI FILE makanan.js DENGAN KODE DI BAWAH INI
 // Data Produk Frozen Tradisional Indonesia
 // =====================
 const frozenProducts = [
@@ -104,7 +105,7 @@ const frozenProducts = [
     rating: 4.5,
     image: "img/frozen/mendoan.jpg",
     description: "Tempe mendoan siap goreng dengan bumbu khas Banyumas."
-  },
+  },  
   {
     id: 14,
     name: "Ayam Geprek Crispy",
@@ -112,11 +113,11 @@ const frozenProducts = [
     rating: 5,
     image: "img/frozen/geprek.jpg",
     description: "Ayam goreng crispy pedas, tinggal dipanaskan."
-  },
+  },  
   {
     id: 15,
     name: "Gudeg Jogja",
-    price: "Rp 70.000",
+    price: "Rp 70.000", 
     rating: 5,
     image: "img/frozen/gudeg.jpg",
     description: "Gudeg Jogja lengkap dengan krecek dan telur."
@@ -186,11 +187,12 @@ function showFrozenDetail(product) {
     </div>
   `;
 
-  document.getElementById("frozenPopup").style.display = "flex";
-
+  // PERBAIKAN 1
+  document.getElementById("frozenPopup").classList.add("show");
   // tombol close
   document.querySelector("#frozenPopup .close-btn").onclick = () => {
-    document.getElementById("frozenPopup").style.display = "none";
+  // PERBAIKAN 2
+    document.getElementById("frozenPopup").classList.remove("show");
   };
 }
 
@@ -199,16 +201,20 @@ function showFrozenDetail(product) {
 // =====================
 function openFrozenConfirm() {
   const confirmPopup = document.getElementById("frozenConfirmPopup");
-  confirmPopup.style.display = "flex";
+  // PERBAIKAN 3
+  confirmPopup.classList.add("show");
 
   document.getElementById("frozenCancelBtn").onclick = () => {
-    confirmPopup.style.display = "none";
+    // PERBAIKAN 4
+    confirmPopup.classList.remove("show");
   };
 
   document.getElementById("frozenConfirmBtn").onclick = () => {
     alert("Pembelian Berhasil!");
-    confirmPopup.style.display = "none";
-    document.getElementById("frozenPopup").style.display = "none";
+    // PERBAIKAN 5
+    confirmPopup.classList.remove("show");
+    // PERBAIKAN 6
+    document.getElementById("frozenPopup").classList.remove("show");
   };
 }
 

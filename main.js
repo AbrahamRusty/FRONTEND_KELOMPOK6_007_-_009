@@ -125,17 +125,21 @@ window.addEventListener("scroll", () => {
 }, { passive: true });
 
 // Event listener yang dijalankan saat dokumen dimuat
+// Event listener yang dijalankan saat dokumen dimuat
 document.addEventListener('DOMContentLoaded', () => {
-    const confirmPopup = document.getElementById('confirmPopup');
+    // Ambil semua pop-up yang mungkin ada di halaman ini
+    const confirmPopup = document.getElementById('confirmPopup') || document.getElementById('frozenConfirmPopup');
     const successPopup = document.getElementById('successPopup');
     const contactPopup = document.getElementById('contactPopup');
 
+    // 1. Logika untuk tombol Close (X) pada pop-up
     document.querySelectorAll('.popup-overlay .close-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             btn.closest('.popup-overlay').classList.remove('show');
         });
     });
 
+    // 2. Logika untuk menutup pop-up ketika klik di luar konten pop-up
     document.querySelectorAll('.popup-overlay').forEach(overlay => {
         overlay.addEventListener('click', (e) => {
             if (e.target.classList.contains('popup-overlay')) {
@@ -144,41 +148,51 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- PERBAIKAN DI SINI ---
-    // Logika pop-up konfirmasi
-    document.querySelector('#confirmPopup .green-btn').addEventListener('click', () => {
-        // Tutup pop-up konfirmasi
-        confirmPopup.classList.remove('show');
+    // 3. Logika pop-up konfirmasi (Hanya dijalankan jika elemen ada)
+    if (confirmPopup) {
+        // Karena di makanan.js sudah ada, bagian ini mungkin tidak perlu, 
+        // tetapi kita amankan jika memang ada tombol konfirmasi universal
+        const greenBtn = confirmPopup.querySelector('.green-btn');
+        const redBtn = confirmPopup.querySelector('.red-btn');
 
-        // Tampilkan pesan alert
-        alert("Pembelian Berhasil! Pesanan Anda akan segera diproses.");
+        if (greenBtn) {
+            greenBtn.addEventListener('click', () => {
+                confirmPopup.classList.remove('show');
+                alert("Pembelian Berhasil! Pesanan Anda akan segera diproses.");
+            });
+        }
 
-        // Jika Anda tetap ingin menampilkan pop-up sukses setelah alert
-        // successPopup.classList.add('show');
-    });
+        if (redBtn) {
+            redBtn.addEventListener('click', () => {
+                confirmPopup.classList.remove('show');
+            });
+        }
+    }
+    
+    // 4. Menutup pop-up sukses (Hanya dijalankan jika elemen ada)
+    if (successPopup) {
+        document.querySelector('#successPopup .close-btn').addEventListener('click', () => {
+            successPopup.classList.remove('show');
+        });
+    }
 
-    document.querySelector('#confirmPopup .red-btn').addEventListener('click', () => {
-        confirmPopup.classList.remove('show');
-    });
-
-    // Menutup pop-up sukses
-    document.querySelector('#successPopup .close-btn').addEventListener('click', () => {
-        successPopup.classList.remove('show');
-    });
-    // --- AKHIR PERBAIKAN ---
-
+    // 5. Logika UTAMA untuk tombol KONTAK
     const kontakLink = document.querySelector('.kontak-link');
     if (kontakLink) {
         kontakLink.addEventListener('click', (e) => {
             e.preventDefault();
+            // Inilah baris yang Anda perlukan. Sekarang contactPopup pasti terdefinisi!
             if (contactPopup) {
                 contactPopup.classList.add("show");
+            } else {
+                console.error("Popup Kontak tidak ditemukan.");
             }
         });
     }
 
+    // 6. Logika Submit Form Kontak
     const contactForm = document.querySelector('.contact-form');
-    if (contactForm) {
+    if (contactForm && contactPopup && successPopup) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
             contactPopup.classList.remove("show");

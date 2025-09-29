@@ -167,40 +167,48 @@ nav ul li a:hover {
 }
 
 /* ===== Pop-up Kontak ===== */
+/* ===== Pop-up Kontak - VERSI PALING SIMPEL (MENGHINDARI KONFLIK TRANSISI) ===== */
 .popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  visibility: hidden; 
-  opacity: 0;
-  transition: opacity 0.3s, visibility 0.3s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    
+    /* Kunci: Menyembunyikan pop-up secara total */
+    display: none; 
+    
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    
+    /* Hapus SEMUA properti visibility dan opacity di sini */
 }
 
+/* KODE INI YANG MENAMPILKAN POP-UP */
 .popup-overlay.show {
-  visibility: visible;
-  opacity: 1;
+    /* Kunci: Menampilkan pop-up saat class "show" ditambahkan */
+    display: flex; 
+    
+    /* Hapus SEMUA properti visibility dan opacity di sini */
 }
 
+/* Biarkan .popup-content dan .popup-overlay.show .popup-content tetap ada */
 .popup-content {
-  background: #fff8f0;
-  padding: 30px;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 450px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  transform: translateY(-20px);
-  transition: transform 0.3s ease-out;
-  position: relative;
+    background: #fff8f0;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease-out; /* Boleh tetap ada untuk animasi masuk */
+    position: relative;
 }
 
 .popup-overlay.show .popup-content {
-  transform: translateY(0);
+    transform: translateY(0);
 }
 
 .close-btn {
