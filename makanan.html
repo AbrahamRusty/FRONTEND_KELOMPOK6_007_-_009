@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jagantara - Makanan Frozen</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <div class="logo">Jagantara</div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="pakaian.html">Pakaian</a></li>
+          <li><a href="makanan.html">Makanan Frozen</a></li>
+          <li><a href="aksesoris.html">Aksesoris</a></li>
+          <li><a href="#" class="kontak-link">Kontak</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Banner -->
+  <main class="product-page-main">
+    <div class="page-banner">
+      <h1 class="container">Makanan Frozen</h1>
+    </div>
+
+    <!-- Produk Grid -->
+    <div class="product-grid container" id="frozenGrid"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Jagantara. Semua Hak Dilindungi.</p>
+    </div>
+  </footer>
+
+  <!-- Popup Detail Produk -->
+  <div id="frozenPopup" class="popup-overlay">
+    <div class="popup-content product-detail-content">
+      <span class="close-btn">&times;</span>
+      <div id="frozen-detail"></div>
+    </div>
+  </div>
+  
+    <!-- Popup Kontak -->
+   <div id="contactPopup" class="popup-overlay">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h3>Hubungi Kami</h3>
+            <form class="contact-form">
+                <label for="name">Nama:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Pesan:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                <button type="submit">Kirim Pesan</button>
+            </form>
+        </div>
+    </div>
+    
+    <div id="successPopup" class="popup-overlay">
+        <div class="success-content">
+            <span class="close-btn">&times;</span>
+            <p>Pesan Berhasil Dikirim!</p>
+        </div>
+    </div>
+
+  <!-- Popup Konfirmasi -->
+  <div id="frozenConfirmPopup" class="popup-overlay">
+    <div class="popup-content confirm-content">
+      <h3>Konfirmasi Pembelian</h3>
+      <p>Apakah Anda yakin ingin membeli produk ini?</p>
+      <div class="confirm-buttons">
+        <button id="frozenConfirmBtn" class="btn green-btn">Konfirmasi</button>
+        <button id="frozenCancelBtn" class="btn red-btn">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script src="makanan.js"></script>
+</body>
+</html>
