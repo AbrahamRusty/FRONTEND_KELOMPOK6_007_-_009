@@ -7,7 +7,7 @@ const frozenProducts = [
     name: "Pempek Palembang",
     price: "Rp 50.000",
     rating: 5,
-    image: "img/pempek.jpg",
+    image: "images/pempek.jpeg",
     description: "Nikmati cita rasa khas Palembang dengan aneka pempek yang gurih dan lezat! Dibuat dari ikan pilihan dan tepung sagu berkualitas, menghasilkan tekstur kenyal sempurna dan rasa yang otentik."
   },
   {
@@ -15,7 +15,7 @@ const frozenProducts = [
     name: "Siomay Bandung",
     price: "Rp 45.000",
     rating: 4.5,
-    image: "img/siomay.jpg",
+    image: "images/siomay.jpeg",
     description: "Nikmati hidangan khas Bandung yang sudah jadi favorit banyak orang! Terbuat dari ikan segar pilihan dan bumbu istimewa, menghasilkan siomay dengan tekstur lembut, gurih, dan aroma khas yang menggoda."
   },
   {
@@ -23,7 +23,7 @@ const frozenProducts = [
     name: "Batagor Bandung",
     price: "Rp 48.000",
     rating: 4,
-    image: "img/batagor.jpg",
+    image: "images/batagor.jpeg",
     description: "Batagor (Bakso Tahu Goreng) khas Bandung, sajian legendaris yang selalu bikin rindu! Terbuat dari adonan ikan segar yang dibalut kulit pangsit dan tahu, kemudian digoreng hingga renyah keemasan. Disajikan dengan bumbu kacang kental, manis, gurih, serta perasan jeruk limau yang menyegarkan."
   },
   {
@@ -31,7 +31,7 @@ const frozenProducts = [
     name: "Lumpia Semarang",
     price: "Rp 55.000",
     rating: 5,
-    image: "img/lumpia.jpg",
+    image: "images/lumpia.jpeg",
     description: "Lumpia khas Semarang dengan cita rasa legendaris yang sudah turun-temurun! Kulitnya tipis dan renyah, berisi tumisan rebung segar, ayam/udang, serta bumbu rempah pilihan yang harum menggoda."
   },
   {
@@ -39,7 +39,7 @@ const frozenProducts = [
     name: "Risol Mayo",
     price: "Rp 40.000",
     rating: 4,
-    image: "img/risol.jpg",
+    image: "images/risol.jpeg",
     description: "Risol kekinian dengan isian melimpah, perpaduan sosis, smoked beef, telur, dan mayones creamy yang lumer di mulut. Dibungkus dengan kulit risol yang tipis lalu digoreng hingga golden brown, menghasilkan tekstur luar renyah dan dalamnya lembut gurih."
   },
   {
@@ -47,7 +47,7 @@ const frozenProducts = [
     name: "Pastel Ayam",
     price: "Rp 42.000",
     rating: 4.5,
-    image: "img/pastel.jpg",
+    image: "images/pastel.jpeg",
     description: "Gurihnya pastel goreng dengan kulit tipis renyah keemasan dan isian melimpah. Dibuat dari campuran kentang, wortel, telur, bihun, dan bumbu rempah pilihan yang harum dan lezat."
   },
   {
@@ -55,7 +55,7 @@ const frozenProducts = [
     name: "Martabak Mini Manis",
     price: "Rp 38.000",
     rating: 4,
-    image: "img/martabak.jpg",
+    image: "images/martabak.jpeg",
     description: "Martabak mini dengan tekstur empuk dan gurih, dipadukan dengan topping cokelat meises manis legit serta keju parut gurih yang lumer di mulut. Perpaduan rasa manis dan gurihnya pas banget untuk camilan santai maupun suguhan tamu."
   },
   {
@@ -63,7 +63,7 @@ const frozenProducts = [
     name: "Sate Lilit Bali",
     price: "Rp 60.000",
     rating: 5,
-    image: "img/sate-lilit.jpg",
+    image: "images/sate-lilit.jpeg",
     description: "Nikmati cita rasa khas Bali dengan Sate Lilit yang dibuat dari daging cincang pilihan, dicampur dengan bumbu rempah tradisional yang harum."
   },
   {
@@ -71,7 +71,7 @@ const frozenProducts = [
     name: "Otak-Otak Ikan",
     price: "Rp 45.000",
     rating: 4.5,
-    image: "img/otak-otak.jpg",
+    image: "images/otak-otak.jpeg",
     description: "Nikmati lezatnya otak-otak khas Nusantara yang dibungkus daun pisang dan dipanggang hingga harum. Terbuat dari adonan ikan segar yang lembut, dipadukan dengan bumbu pilihan yang meresap sempurna."
   },
   {
@@ -79,7 +79,7 @@ const frozenProducts = [
     name: "Perkedel Kentang",
     price: "Rp 35.000",
     rating: 4,
-    image: "img/perkedel.jpg",
+    image: "images/perkedel.jpeg",
     description: "Perkedel kentang goreng yang berwarna keemasan menggoda. Teksturnya renyah di luar, lembut dan gurih di dalam. Perkedel ini dibuat dari kentang yang dihaluskan, dicampur dengan bumbu pilihan, lalu digoreng hingga matang sempurna."
   },
   {
@@ -87,7 +87,7 @@ const frozenProducts = [
     name: "Bakso Sapi",
     price: "Rp 55.000",
     rating: 5,
-    image: "img/bakso.jpg",
+    image: "images/bakso.jpeg",
     description: "Bakso sapi urat kenyal khas Indonesia. Isi 25 pcs."
   },
   {
@@ -95,7 +95,7 @@ const frozenProducts = [
     name: "Bakwan Jagung",
     price: "Rp 32.000",
     rating: 4,
-    image: "img/bakwan.jpg",
+    image: "images/bakwan.jpeg",
     description: "Nikmati lezatnya bakwan jagung khas Indonesia yang renyah di luar dan lembut di dalam, terbuat dari jagung manis segar dicampur dengan bumbu rempah pilihan."
   },
   {
@@ -103,7 +103,7 @@ const frozenProducts = [
     name: "Tempe Mendoan",
     price: "Rp 30.000",
     rating: 4.5,
-    image: "img/mendoan.jpg",
+    image: "images/mendoan.jpeg",
     description: "Tempe Mendoan kami dibuat dari tempe kedelai segar pilihan yang diiris tipis, kemudian dicelupkan ke dalam adonan tepung berbumbu kaya rempah yang khas."
   },  
   {
@@ -111,7 +111,7 @@ const frozenProducts = [
     name: "Ayam Geprek Crispy",
     price: "Rp 58.000",
     rating: 5,
-    image: "img/geprek.jpg",
+    image: "images/geprek.jpeg",
     description: "Ayam crispy renyah yang digeprek dengan Sambal Bawang segar yang pedas dan gurih nendang. Disajikan lengkap dengan nasi pulen hangat dan timun segar."
   },  
   {
@@ -119,7 +119,7 @@ const frozenProducts = [
     name: "Gudeg Jogja",
     price: "Rp 70.000", 
     rating: 5,
-    image: "img/gudeg.jpg",
+    image: "images/gudeg.jpeg",
     description: "Gudeg klasik dari nangka muda yang dimasak berjam-jam (di-mudhet) hingga empuk, berserat halus, dan berwarna cokelat kemerahan pekat secara alami. Rasanya manis legit dengan sentuhan gurih santan dan rempah khas."
   },
   {
@@ -127,7 +127,7 @@ const frozenProducts = [
     name: "Nasi Goreng Kampung",
     price: "Rp 40.000",
     rating: 4.5,
-    image: "img/nasi-goreng.jpg",
+    image: "images/nasi-goreng.jpeg",
     description: "Nasi goreng khas kampung dengan ayam dan telur."
   }
 ];
