@@ -77,15 +77,73 @@
     color: lightgray;
 }
 
-/* ===== Pop-up Detail Produk ===== */
-.product-detail-content {
-    max-width: 800px;
-    display: flex;
-    flex-direction: column;
+/* ===== SISTEM POPUP YANG DIPERBAIKI ===== */
+/* Overlay popup - default tersembunyi */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
     align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-#product-detail {
+/* Tampilkan popup saat class 'show' ditambahkan */
+.popup-overlay.show {
+    display: flex;
+    opacity: 1;
+}
+
+/* Container popup */
+.popup-content {
+    background: #fff8f0;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.popup-overlay.show .popup-content {
+    transform: scale(1);
+}
+
+/* Tombol close */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    color: #8b5e3c;
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 1;
+    z-index: 10;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #4a2c2a;
+}
+
+/* ===== Pop-up Detail Produk ===== */
+.product-detail-content {
+    max-width: 900px;
+    padding: 20px;
+}
+
+#product-detail, #frozen-detail {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -93,11 +151,16 @@
     width: 100%;
 }
 
-#product-detail .detail-image {
+.detail-image {
     width: 100%;
     max-height: 400px;
-    object-fit: contain;
-    border-radius: 20px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.detail-info {
+    width: 100%;
 }
 
 .detail-info h2 {
@@ -120,36 +183,25 @@
 
 .detail-info p {
     color: #4a2c2a;
-    line-height: 1.6;
+    line-height: 1.8;
     margin-bottom: 20px;
+    text-align: left;
 }
 
-.detail-info .buy-btn {
-    background: #a97142;
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.detail-info .buy-btn:hover {
-    background: #8b5e3c;
-}
-
-/* Responsive */
+/* Responsive untuk desktop */
 @media (min-width: 768px) {
-    #product-detail {
+    #product-detail, #frozen-detail {
         flex-direction: row;
         text-align: left;
     }
-    #product-detail .detail-image {
-        width: 50%;
+    
+    .detail-image {
+        width: 45%;
+        max-height: 500px;
     }
+    
     .detail-info {
-        width: 50%;
+        width: 55%;
         padding-left: 30px;
     }
 }
@@ -157,18 +209,21 @@
 /* ===== Pop-up Konfirmasi ===== */
 .confirm-content {
     text-align: center;
-    padding: 30px;
+    padding: 40px 30px;
     background-color: rgb(236, 206, 174);
+    max-width: 450px;
 }
 
 .confirm-content h3 {
     color: #4a2c2a;
     margin-bottom: 15px;
+    font-size: 1.5rem;
 }
 
 .confirm-content p {
     margin-bottom: 25px;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    color: #4a2c2a;
 }
 
 .confirm-buttons {
@@ -179,13 +234,14 @@
 }
 
 .btn {
-    padding: 10px 20px;
+    padding: 12px 30px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     color: white;
     font-weight: bold;
-    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    transition: all 0.3s ease;
 }
 
 .green-btn {
@@ -194,6 +250,8 @@
 
 .green-btn:hover {
     background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .red-btn {
@@ -202,4 +260,128 @@
 
 .red-btn:hover {
     background-color: #da190b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Success Popup */
+.success-content {
+    text-align: center;
+    padding: 40px;
+    background-color: #d4edda;
+    border: 2px solid #28a745;
+    max-width: 400px;
+}
+
+.success-content p {
+    font-size: 1.3rem;
+    color: #155724;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* ===== TOMBOL BELI SEKARANG - UNIVERSAL ===== */
+/* Override untuk tombol di popup detail produk */
+#product-detail button,
+#frozen-detail button,
+.detail-info button {
+    background-color: #6ba368 !important;
+    color: white !important;
+    padding: 14px 40px !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-size: 1.1rem !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    display: inline-block !important;
+    text-align: center !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15) !important;
+    margin-top: 5px !important;
+}
+
+#product-detail button:hover,
+#frozen-detail button:hover,
+.detail-info button:hover {
+    background-color: #5a8f57 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+#product-detail button:active,
+#frozen-detail button:active,
+.detail-info button:active {
+    transform: translateY(0) !important;
+}
+
+/* Class tambahan jika pakai buy-now-btn di JS */
+.buy-now-btn {
+    background-color: #6ba368 !important;
+    color: white !important;
+    padding: 14px 40px !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-size: 1.1rem !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    display: inline-block !important;
+    text-align: center !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15) !important;
+    margin-top: 10px !important;
+}
+
+.buy-now-btn:hover {
+    background-color: #5a8f57 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+.buy-now-btn:active {
+    transform: translateY(0) !important;
+}
+
+/* Override khusus untuk tombol konfirmasi - jangan terpengaruh */
+.confirm-buttons button {
+    margin-top: 0 !important;
+}
+
+#confirmBtn,
+#frozenConfirmBtn {
+    background-color: #4CAF50 !important;
+}
+
+#confirmBtn:hover,
+#frozenConfirmBtn:hover {
+    background-color: #45a049 !important;
+}
+
+#cancelBtn,
+#frozenCancelBtn {
+    background-color: #f44336 !important;
+}
+
+#cancelBtn:hover,
+#frozenCancelBtn:hover {
+    background-color: #da190b !important;
+}
+
+/* Contact form button tetap coklat */
+.contact-form button {
+    background-color: #a97142 !important;
+    margin-top: 0 !important;
+}
+
+.contact-form button:hover {
+    background-color: #8b5e3c !important;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    #product-detail button,
+    #frozen-detail button,
+    .buy-now-btn {
+        width: 100% !important;
+        max-width: 300px;
+    }
 }

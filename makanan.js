@@ -1,6 +1,4 @@
-// GANTI SELURUH ISI FILE makanan.js DENGAN KODE DI BAWAH INI
 // Data Produk Frozen Tradisional Indonesia
-// =====================
 const frozenProducts = [
   {
     id: 1,
@@ -137,13 +135,15 @@ const frozenProducts = [
 // =====================
 function displayFrozenProducts() {
   const grid = document.getElementById("frozenGrid");
+  if (!grid) return;
+  
   grid.innerHTML = "";
 
   frozenProducts.forEach(product => {
     const card = document.createElement("div");
     card.classList.add("product-card");
 
-    // generate bintang rating
+    // Generate bintang rating
     const fullStars = Math.floor(product.rating);
     const halfStar = product.rating % 1 !== 0;
     let starsHTML = "";
@@ -167,14 +167,17 @@ function displayFrozenProducts() {
 // Popup Detail Produk
 // =====================
 function showFrozenDetail(product) {
+  const popup = document.getElementById("frozenPopup");
   const detail = document.getElementById("frozen-detail");
+  
+  if (!popup || !detail) return;
 
   const fullStars = Math.floor(product.rating);
   const halfStar = product.rating % 1 !== 0;
   let starsHTML = "";
   for (let i = 0; i < fullStars; i++) starsHTML += `<i class="fa-solid fa-star"></i>`;
-    if (halfStar) starsHTML += `<i class="fa-solid fa-star-half-stroke"></i>`;
-    for (let i = fullStars + (halfStar ? 1 : 0); i < 5; i++) starsHTML += `<i class="fa-regular fa-star"></i>`;
+  if (halfStar) starsHTML += `<i class="fa-solid fa-star-half-stroke"></i>`;
+  for (let i = fullStars + (halfStar ? 1 : 0); i < 5; i++) starsHTML += `<i class="fa-regular fa-star"></i>`;
 
   detail.innerHTML = `
     <img src="${product.image}" class="detail-image" alt="${product.name}">
@@ -187,13 +190,31 @@ function showFrozenDetail(product) {
     </div>
   `;
 
-  // PERBAIKAN 1
-  document.getElementById("frozenPopup").classList.add("show");
-  // tombol close
-  document.querySelector("#frozenPopup .close-btn").onclick = () => {
-  // PERBAIKAN 2
-    document.getElementById("frozenPopup").classList.remove("show");
+  // Tampilkan popup
+  popup.classList.add("show");
+  
+  // Event listener untuk tombol close
+  const closeBtn = popup.querySelector(".close-btn");
+  if (closeBtn) {
+    closeBtn.onclick = function() {
+      closeFrozenPopup();
+    };
+  }
+  
+  // Tutup popup jika klik di luar konten
+  popup.onclick = function(event) {
+    if (event.target === popup) {
+      closeFrozenPopup();
+    }
   };
+}
+
+// Fungsi untuk menutup popup detail
+function closeFrozenPopup() {
+  const popup = document.getElementById("frozenPopup");
+  if (popup) {
+    popup.classList.remove("show");
+  }
 }
 
 // =====================
@@ -201,24 +222,39 @@ function showFrozenDetail(product) {
 // =====================
 function openFrozenConfirm() {
   const confirmPopup = document.getElementById("frozenConfirmPopup");
-  // PERBAIKAN 3
+  if (!confirmPopup) return;
+  
   confirmPopup.classList.add("show");
 
-  document.getElementById("frozenCancelBtn").onclick = () => {
-    // PERBAIKAN 4
-    confirmPopup.classList.remove("show");
-  };
+  // Tombol Batal
+  const cancelBtn = document.getElementById("frozenCancelBtn");
+  if (cancelBtn) {
+    cancelBtn.onclick = function() {
+      confirmPopup.classList.remove("show");
+    };
+  }
 
-  document.getElementById("frozenConfirmBtn").onclick = () => {
-    alert("Pembelian Berhasil!");
-    // PERBAIKAN 5
-    confirmPopup.classList.remove("show");
-    // PERBAIKAN 6
-    document.getElementById("frozenPopup").classList.remove("show");
+  // Tombol Konfirmasi
+  const confirmBtn = document.getElementById("frozenConfirmBtn");
+  if (confirmBtn) {
+    confirmBtn.onclick = function() {
+      alert("Pembelian Berhasil!");
+      confirmPopup.classList.remove("show");
+      closeFrozenPopup();
+    };
+  }
+  
+  // Tutup jika klik di luar konten
+  confirmPopup.onclick = function(event) {
+    if (event.target === confirmPopup) {
+      confirmPopup.classList.remove("show");
+    }
   };
 }
 
 // =====================
 // Load Produk saat page dibuka
 // =====================
-document.addEventListener("DOMContentLoaded", displayFrozenProducts);
+document.addEventListener("DOMContentLoaded", function() {
+  displayFrozenProducts();
+});

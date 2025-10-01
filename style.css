@@ -12,8 +12,8 @@
 /* ===== Body ===== */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f9f6f2; /* cream background */
-  color: #4a2c2a; /* dark brown text */
+  background-color: #f9f6f2;
+  color: #4a2c2a;
   padding-top: var(--header-height);
 }
 
@@ -44,12 +44,10 @@ header {
   will-change: transform;
 }
 
-/* Hide class */
 header.header-hidden {
   transform: translateY(calc(-1 * var(--header-height)));
 }
 
-/* Shadow ketika scroll */
 header.header-scrolled {
   box-shadow: 0 4px 10px rgba(0,0,0,0.12);
 }
@@ -120,17 +118,17 @@ nav ul li a:hover {
   background: #8b5e3c;
 }
 
-/* Untuk membuat background gambar hanya di konten tengah */
 .banner-content {
   background: url('images/banner2.jpg') center/cover no-repeat;
-  min-height: 108vh;    /* tinggi banner fleksibel, 80% tinggi layar */
-  width: 100%;         /* full width stabil saat zoom */
+  min-height: 108vh;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;  /* teks tetap di tengah */
-  color: #fff;    /* hanya padding tipis buat jarak */
+  flex-direction: column;
+  color: #fff;
 }
+
 /* ===== Kategori ===== */
 .kategori {
   padding: 50px 0;
@@ -166,77 +164,84 @@ nav ul li a:hover {
   margin-top: 5px;
 }
 
-/* ===== Pop-up Kontak ===== */
-/* ===== Pop-up Kontak - VERSI PALING SIMPEL (MENGHINDARI KONFLIK TRANSISI) ===== */
+/* ===== POPUP SYSTEM - KONSISTEN DENGAN GLOBAL.CSS ===== */
 .popup-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    
-    /* Kunci: Menyembunyikan pop-up secara total */
-    display: none; 
-    
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
-    
-    /* Hapus SEMUA properti visibility dan opacity di sini */
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-/* KODE INI YANG MENAMPILKAN POP-UP */
 .popup-overlay.show {
-    /* Kunci: Menampilkan pop-up saat class "show" ditambahkan */
-    display: flex; 
-    
-    /* Hapus SEMUA properti visibility dan opacity di sini */
+    display: flex;
+    opacity: 1;
 }
 
-/* Biarkan .popup-content dan .popup-overlay.show .popup-content tetap ada */
 .popup-content {
     background: #fff8f0;
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 15px;
     width: 90%;
-    max-width: 450px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    transform: translateY(-20px);
-    transition: transform 0.3s ease-out; /* Boleh tetap ada untuk animasi masuk */
+    max-width: 500px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     position: relative;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
 }
 
 .popup-overlay.show .popup-content {
-    transform: translateY(0);
+    transform: scale(1);
 }
 
 .close-btn {
   position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 24px;
+  top: 15px;
+  right: 20px;
+  font-size: 30px;
   color: #8b5e3c;
   cursor: pointer;
+  font-weight: bold;
+  transition: color 0.2s;
+  line-height: 1;
+  z-index: 10;
+}
+
+.close-btn:hover {
+  color: #4a2c2a;
 }
 
 .popup-content h3 {
   margin-bottom: 20px;
   text-align: center;
   color: #8b5e3c;
+  font-size: 1.5rem;
 }
 
+/* Contact Form Styling */
 .contact-form label {
   display: block;
   margin-bottom: 5px;
+  color: #4a2c2a;
+  font-weight: bold;
 }
 
-.contact-form input, .contact-form textarea {
+.contact-form input, 
+.contact-form textarea {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  font-family: Arial, sans-serif;
+  resize: none;
 }
 
 .contact-form button {
@@ -247,6 +252,28 @@ nav ul li a:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.contact-form button:hover {
+    background: #8b5e3c;
+}
+
+/* Success Popup */
+.success-content {
+    text-align: center;
+    padding: 40px;
+    background-color: #d4edda;
+    border: 2px solid #28a745;
+    max-width: 400px;
+}
+
+.success-content p {
+    font-size: 1.3rem;
+    color: #155724;
+    font-weight: bold;
+    margin: 0;
 }
 
 /* ===== Produk ===== */
@@ -306,63 +333,4 @@ nav ul li a:hover {
   }
 }
 
-/* ===== Tombol Navigasi Carousel BARU ===== */
-.produk-carousel .prev-btn,
-.produk-carousel .next-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 50%;
-    font-size: 20px;
-    z-index: 10;
-    width: 40px;
-    height: 40px;
-    transition: background 0.3s;
-}
-
-.produk-carousel .prev-btn:hover,
-.produk-carousel .next-btn:hover {
-    background: rgba(0, 0, 0, 0.8);
-}
-
-.produk-carousel .prev-btn {
-    left: 10px;
-}
-
-.produk-carousel .next-btn {
-    right: 10px;
-}
-
-.contact-form button:hover {
-    background: #8b5e3c;
-}
-
-/* ===== Footer ===== */
-footer {
-  background: #4a2c2a;
-  color: white;
-  text-align: center;
-  padding: 15px;
-  margin-top: 50px;
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 768px) {
-  :root {
-    --header-height: 60px;
-  }
-  .logo {
-    font-size: 1.5rem;
-  }
-  nav ul {
-    gap: 12px;
-  }
-  .card {
-    flex: 0 0 180px;
-  }
-}
+/* ===== Tombol Navigasi Carousel =====
