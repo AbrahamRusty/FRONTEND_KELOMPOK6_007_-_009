@@ -131,17 +131,24 @@ const frozenProducts = [
 ];
 
 // =====================
-// Render Produk ke Grid
+// Fungsi untuk menampilkan produk
 // =====================
-function displayFrozenProducts() {
+function displayFrozenProducts(productsToShow = frozenProducts) {
   const grid = document.getElementById("frozenGrid");
   if (!grid) return;
   
+  if (productsToShow.length === 0) {
+    grid.innerHTML = '<p class="no-products">Tidak ada produk yang ditemukan</p>';
+    return;
+  }
+
   grid.innerHTML = "";
 
-  frozenProducts.forEach(product => {
+  productsToShow.forEach(product => {
     const card = document.createElement("div");
     card.classList.add("product-card");
+    card.setAttribute("data-id", product.id);
+    card.setAttribute("data-name", product.name.toLowerCase());
 
     // Generate bintang rating
     const fullStars = Math.floor(product.rating);
@@ -152,7 +159,8 @@ function displayFrozenProducts() {
     for (let i = fullStars + (halfStar ? 1 : 0); i < 5; i++) starsHTML += `<i class="fa-regular fa-star"></i>`;
 
     card.innerHTML = `
-      <img src="${product.image}" alt="${product.name}">
+      <div class="product-id">ID: ${product.id}</div>
+      <img src="${product.image}" alt="${product.name}" onerror="this.src='images/placeholder.jpg'">
       <h3>${product.name}</h3>
       <p class="price">${product.price}</p>
       <div class="stars">${starsHTML}</div>
@@ -160,6 +168,95 @@ function displayFrozenProducts() {
 
     card.addEventListener("click", () => showFrozenDetail(product));
     grid.appendChild(card);
+  });
+}
+
+// =====================
+// Fungsi untuk mencari produk berdasarkan NAMA
+// =====================
+function searchFrozenProduct() {
+  const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  
+  // Reset hasil pencarian sebelumnya
+  searchResults.innerHTML = '';
+  document.querySelectorAll('.product-card').forEach(card => {
+    card.classList.remove('highlight');
+  });
+  
+  if (!searchTerm) {
+    // Jika search kosong, tampilkan semua produk
+    displayFrozenProducts();
+    searchResults.innerHTML = '<p class="search-info">Masukkan nama makanan untuk mencari</p>';
+    return;
+  }
+  
+  // Cari produk berdasarkan NAMA (case insensitive)
+  const foundProducts = frozenProducts.filter(product => 
+    product.name.toLowerCase().includes(searchTerm)
+  );
+  
+  if (foundProducts.length > 0) {
+    // Tampilkan produk yang ditemukan
+    displayFrozenProducts(foundProducts);
+    
+    // Highlight semua produk yang ditemukan
+    foundProducts.forEach(product => {
+      const productCard = document.querySelector(`.product-card[data-id="${product.id}"]`);
+      if (productCard) {
+        productCard.classList.add('highlight');
+      }
+    });
+    
+    // Tampilkan pesan sukses
+    if (foundProducts.length === 1) {
+      searchResults.innerHTML = `<p class="search-success">1 produk ditemukan: <strong>"${foundProducts[0].name}"</strong></p>`;
+    } else {
+      const productNames = foundProducts.map(p => `"${p.name}"`).join(', ');
+      searchResults.innerHTML = `<p class="search-success">${foundProducts.length} produk ditemukan: ${productNames}</p>`;
+    }
+    
+    // Scroll ke produk pertama yang ditemukan
+    if (foundProducts.length > 0) {
+      const firstProductCard = document.querySelector(`.product-card[data-id="${foundProducts[0].id}"]`);
+      if (firstProductCard) {
+        firstProductCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+    
+  } else {
+    // Tampilkan pesan tidak ditemukan
+    searchResults.innerHTML = `<p class="no-results">Makanan dengan nama "<strong>${searchInput.value}</strong>" tidak ditemukan. Silakan coba nama lain.</p>`;
+    
+    // Tampilkan semua produk
+    displayFrozenProducts();
+  }
+}
+
+// =====================
+// Fungsi untuk mencari secara real-time (opsional)
+// =====================
+function setupFrozenRealTimeSearch() {
+  const searchInput = document.getElementById('searchInput');
+  let searchTimeout;
+  
+  searchInput.addEventListener('input', function() {
+    clearTimeout(searchTimeout);
+    const searchTerm = this.value.trim();
+    
+    if (searchTerm.length === 0) {
+      displayFrozenProducts();
+      document.getElementById('searchResults').innerHTML = '<p class="search-info">Masukkan nama makanan untuk mencari</p>';
+      return;
+    }
+    
+    // Delay pencarian untuk menghindari terlalu banyak request
+    searchTimeout = setTimeout(() => {
+      if (searchTerm.length >= 2) { // Minimal 2 karakter
+        searchFrozenProduct();
+      }
+    }, 300);
   });
 }
 
@@ -180,13 +277,14 @@ function showFrozenDetail(product) {
   for (let i = fullStars + (halfStar ? 1 : 0); i < 5; i++) starsHTML += `<i class="fa-regular fa-star"></i>`;
 
   detail.innerHTML = `
-    <img src="${product.image}" class="detail-image" alt="${product.name}">
+    <img src="${product.image}" class="detail-image" alt="${product.name}" onerror="this.src='images/placeholder.jpg'">
     <div class="detail-info">
+      <span class="product-id-large">ID: ${product.id}</span>
       <h2>${product.name}</h2>
       <div class="stars">${starsHTML}</div>
       <p class="price">${product.price}</p>
       <p>${product.description}</p>
-      <button class="btn green-btn" onclick="openFrozenConfirm()">Beli Sekarang</button>
+      <button class="btn buy-now-btn" onclick="openFrozenConfirm(${product.id})">Beli Sekarang</button>
     </div>
   `;
 
@@ -218,11 +316,14 @@ function closeFrozenPopup() {
 }
 
 // =====================
-// Popup Konfirmasi
+// Popup Konfirmasi (Updated)
 // =====================
-function openFrozenConfirm() {
+function openFrozenConfirm(productId) {
   const confirmPopup = document.getElementById("frozenConfirmPopup");
   if (!confirmPopup) return;
+  
+  // Cari produk berdasarkan ID
+  const product = frozenProducts.find(p => p.id === productId);
   
   confirmPopup.classList.add("show");
 
@@ -238,7 +339,11 @@ function openFrozenConfirm() {
   const confirmBtn = document.getElementById("frozenConfirmBtn");
   if (confirmBtn) {
     confirmBtn.onclick = function() {
-      alert("Pembelian Berhasil!");
+      if (product) {
+        alert(`Pembelian berhasil!\nProduk: ${product.name}\nHarga: ${product.price}\nSilakan lanjutkan ke pembayaran.`);
+      } else {
+        alert("Pembelian berhasil!");
+      }
       confirmPopup.classList.remove("show");
       closeFrozenPopup();
     };
@@ -253,8 +358,41 @@ function openFrozenConfirm() {
 }
 
 // =====================
-// Load Produk saat page dibuka
+// Event Listeners saat page loaded
 // =====================
 document.addEventListener("DOMContentLoaded", function() {
+  // Tampilkan semua produk saat pertama kali load
   displayFrozenProducts();
+  
+  // Event listener untuk tombol search
+  document.getElementById('searchBtn').addEventListener('click', searchFrozenProduct);
+  
+  // Event listener untuk tekan Enter di input search
+  document.getElementById('searchInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      searchFrozenProduct();
+    }
+  });
+  
+  // Setup real-time search (opsional)
+  setupFrozenRealTimeSearch();
+  
+  // Tampilkan placeholder di search results
+  document.getElementById('searchResults').innerHTML = '<p class="search-info">Masukkan nama makanan untuk mencari</p>';
+  
+  // Event listener untuk tombol close popup
+  document.querySelectorAll('.close-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      this.closest('.popup-overlay').classList.remove('show');
+    });
+  });
+  
+  // Event listener untuk klik di luar popup
+  document.querySelectorAll('.popup-overlay').forEach(overlay => {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.classList.remove('show');
+      }
+    });
+  });
 });

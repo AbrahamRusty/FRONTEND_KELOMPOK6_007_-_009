@@ -1,4 +1,3 @@
-gue ganteng
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -30,8 +29,23 @@ gue ganteng
             <h1 class="container">Aksesoris</h1>
         </div>
         
-        <div class="product-grid container" id="productGrid">
+        <!-- SEARCH BAR SECTION -->
+        <section class="search-section">
+            <div class="search-container">
+                <h2 class="search-title">Cari Aksesoris</h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Cari nama aksesoris (contoh: Kalung, Gelang, Tas...)">
+                    <button id="searchBtn" class="search-btn">
+                        <i class="fas fa-search"></i> Cari
+                    </button>
+                </div>
+                <div id="searchResults" class="search-results"></div>
             </div>
+        </section>
+        
+        <div class="product-grid container" id="productGrid">
+            <!-- Products will be displayed here -->
+        </div>
     </main>
 
     <footer>
@@ -44,7 +58,8 @@ gue ganteng
         <div class="popup-content product-detail-content">
             <span class="close-btn">&times;</span>
             <div id="product-detail">
-                </div>
+                <!-- Product detail content -->
+            </div>
         </div>
     </div>
     
@@ -83,6 +98,6 @@ gue ganteng
     </div>
 
     <script src="main.js"></script>
-        <script src="aksesoris.js"></script>
+    <script src="aksesoris.js"></script>
 </body>
 </html>

@@ -31,6 +31,20 @@
       <h1 class="container">Makanan Beku</h1>
     </div>
 
+    <!-- SEARCH BAR SECTION -->
+    <section class="search-section">
+      <div class="search-container">
+        <h2 class="search-title">Cari Makanan Beku</h2>
+        <div class="search-box">
+          <input type="text" id="searchInput" class="search-input" placeholder="Cari nama makanan (contoh: Pempek, Siomay, Bakso...)">
+          <button id="searchBtn" class="search-btn">
+            <i class="fas fa-search"></i> Cari
+          </button>
+        </div>
+        <div id="searchResults" class="search-results"></div>
+      </div>
+    </section>
+
     <!-- Produk Grid -->
     <div class="product-grid container" id="frozenGrid"></div>
   </main>
@@ -50,29 +64,29 @@
     </div>
   </div>
   
-    <!-- Popup Kontak -->
+  <!-- Popup Kontak -->
   <div id="contactPopup" class="popup-overlay">
-        <div class="popup-content">
-            <span class="close-btn">&times;</span>
-            <h3>Hubungi Kami</h3>
-            <form class="contact-form">
-                <label for="name">Nama:</label>
-                <input type="text" id="name" name="name" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="message">Pesan:</label>
-                <textarea id="message" name="message" rows="4" required></textarea>
-                <button type="submit">Kirim Pesan</button>
-            </form>
-        </div>
+    <div class="popup-content">
+      <span class="close-btn">&times;</span>
+      <h3>Hubungi Kami</h3>
+      <form class="contact-form">
+        <label for="name">Nama:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="message">Pesan:</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+        <button type="submit">Kirim Pesan</button>
+      </form>
     </div>
-    
-    <div id="successPopup" class="popup-overlay">
-        <div class="success-content">
-            <span class="close-btn">&times;</span>
-            <p>Pesan Berhasil Dikirim!</p>
-        </div>
+  </div>
+  
+  <div id="successPopup" class="popup-overlay">
+    <div class="success-content">
+      <span class="close-btn">&times;</span>
+      <p>Pesan Berhasil Dikirim!</p>
     </div>
+  </div>
 
   <!-- Popup Konfirmasi -->
   <div id="frozenConfirmPopup" class="popup-overlay">
